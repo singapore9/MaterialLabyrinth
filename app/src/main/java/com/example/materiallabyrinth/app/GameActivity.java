@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
     //protected PowerManager.WakeLock _wakeLock;
@@ -162,6 +163,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void Restart(View v) {
         v.startAnimation(rotate_fab);
+        Toast.makeText(this, R.string.level_restart_toast, Toast.LENGTH_SHORT).show();
         _game_engine.send_empty_message(Messages.MSG_RESTART);
     }
 
