@@ -1,0 +1,74 @@
+<!--<android.support.v4.widget.DrawerLayout-->
+        <!--android:id="@+id/drawer_layout"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:fitsSystemWindows="true">-->
+    <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:fitsSystemWindows="true">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+        <Button
+                android:id="@+id/start_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_btn_label"
+                android:textSize="30dp"
+                android:layout_above="@+id/select_lvl_btn"
+                android:textColor="@color/btn_label_color"
+                android:layout_centerHorizontal="true"
+                android:onClick="OnClick"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+                android:id="@+id/select_lvl_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/settings_btn"
+                android:text="@string/select_lvl_btn_label"
+                android:textSize="30dp"
+                android:textColor="@color/btn_label_color"
+                android:layout_centerHorizontal="true"
+                android:onClick="OnClick"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+                android:id="@+id/settings_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/settings_btn_label"
+                android:textSize="30dp"
+                android:textColor="@color/btn_label_color"
+                android:layout_centerHorizontal="true"
+                android:onClick="OnClick"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+                android:id="@+id/exit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_btn"
+                android:text="@string/exit_btn_label"
+                android:textSize="30dp"
+                android:textColor="@color/btn_label_color"
+                android:layout_centerHorizontal="true"
+                android:onClick="OnClick"
+                style="?android:attr/borderlessButtonStyle"/>
+
+    </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+<!--</android.support.v4.widget.DrawerLayout>-->
+

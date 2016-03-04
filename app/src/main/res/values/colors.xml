@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="btn_label_color">#000000</color>
+    <color name="btn_color">#ffffff</color>
+    <color name="ball">#6a6b66</color>
+    <color name="wall">#ff1317</color>
+    <color name="goal">#f4da09</color>
+    <color name="shadow">#e6888888</color>
+    <color name="bottom_line_game">#000000</color>
+</resources>

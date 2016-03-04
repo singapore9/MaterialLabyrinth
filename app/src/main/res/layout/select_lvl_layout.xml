@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+>
+    <Toolbar android:layout_width="@dimen/abc_action_bar_default_height_material"
+             android:layout_height="@dimen/abc_action_bar_default_height_material"></Toolbar>
+    <TextView
+            android:text="Выбирай\nуровни"
+            android:rotation="-45"
+            android:textAllCaps="true"
+            android:textColor="#700000ff"
+            android:textSize="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+    <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawSelectorOnTop="false"
+    />
+
+</RelativeLayout>
