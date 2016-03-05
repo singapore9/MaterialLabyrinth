@@ -10,7 +10,13 @@
     <string name="animation_switch">Анимация фона</string>
     <string name="accelerometr_switch">Акселерометр</string>
     <string name="reset_levels_btn_label">Сброс результатов</string>
-    <string name="level_restart_toast">Рестарт</string>
+    <string name="level_restart_toast">Заново</string>
     <string name="steps">Шаги:</string>
     <string name="goals">Цели:</string>
+    <string name="closed_level">Уровень закрыт</string>
+    <string name="level_solved_tytle">Молодец!</string>
+    <string name="level_solved_btn">К следующему!</string>
+    <string name="all_levels_solved_tytle">Супер!</string>
+    <string name="ok_btn">Ок!</string>
+    <string name="reset_levels_msg">Результаты сброшены</string>
 </resources>

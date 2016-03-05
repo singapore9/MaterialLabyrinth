@@ -48,7 +48,7 @@ public class GameEngine {
     private final AlertDialog _all_maps_solved_dialog;
 
 
-    private boolean _sensor_enabled = true;
+    private boolean _sensor_enabled = false;//true;
 
     private MapsDB _DB;
 
@@ -61,13 +61,13 @@ public class GameEngine {
             _accelY = values[1];
 
             _commanded_roll_direction = Direction.NONE;
-            if (Math.abs(_accelX) > Math.abs(_accelY)) {
+            /*if (Math.abs(_accelX) > Math.abs(_accelY)) {
                 if (_accelX < -ACCEL_THRESHOLD) _commanded_roll_direction = Direction.LEFT;
                 if (_accelX > ACCEL_THRESHOLD) _commanded_roll_direction = Direction.RIGHT;
             } else {
                 if (_accelY < -ACCEL_THRESHOLD) _commanded_roll_direction = Direction.DOWN;
                 if (_accelY > ACCEL_THRESHOLD) _commanded_roll_direction = Direction.UP;
-            }
+            }*/
             if (_commanded_roll_direction != Direction.NONE && ! _ball.is_rolling()) {
                 roll_ball(_commanded_roll_direction);
             }
@@ -96,11 +96,11 @@ public class GameEngine {
         _map_solved_dialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setIcon(android.R.drawable.ic_dialog_info)
-                .setTitle("Молодчина!")
-                .setPositiveButton("К следующему!", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.level_solved_tytle)
+                .setPositiveButton(R.string.level_solved_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which_button) {
                         dialog.cancel();
-                        send_empty_message(Messages.MSG_MAP_NEXT);
+                       /* send_empty_message(Messages.MSG_MAP_NEXT);*/
                     }
                 })
                 .create();
@@ -108,10 +108,11 @@ public class GameEngine {
         _all_maps_solved_dialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Супер!")
-                .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.all_levels_solved_tytle)
+                .setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which_button) {
-                        send_empty_message(Messages.MSG_MAP_NEXT);
+                        dialog.cancel();
+                        /*send_empty_message(Messages.MSG_MAP_NEXT);*/
                     }
                 })
                 .create();
@@ -141,8 +142,8 @@ public class GameEngine {
                                                 "' за " + _step_count + " шагов."
                                 );
                                 _map_solved_dialog.show();
-
                             }
+                            sendEmptyMessage(Messages.MSG_MAP_NEXT);
 
                         }
                         return;
@@ -255,7 +256,7 @@ public class GameEngine {
     }
 
     public void toggle_sensor_enabled() {
-        _sensor_enabled = !_sensor_enabled;
+        _sensor_enabled = false;//!_sensor_enabled;
     }
 
     public void save_state(Bundle icicle) {
@@ -305,7 +306,7 @@ public class GameEngine {
         _steps_view.setText("" + _step_count);
         _steps_view.invalidate();
 
-        _sensor_enabled = sensor_enabled;
+        _sensor_enabled = false;//sensor_enabled;
     }
 
     public void reset_all() {

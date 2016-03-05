@@ -14,11 +14,14 @@ import android.widget.*;
 
 public class SelectLevelActivity extends ListActivity {
     private MapsDB _DB;
-
+    private static final int NUM_OF_OPENED_NEXT_LEVELS = 2;
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         _DB = new MapsDB(getApplicationContext()).open();
+
+
 
         setListAdapter(new CursorAdapter(getApplicationContext(), _DB.allMaps(), true) {
             @Override
@@ -44,15 +47,19 @@ public class SelectLevelActivity extends ListActivity {
                 final TextView map_name = (TextView)view.findViewById(R.id.map_name);
                 final TextView map_solution_steps = (TextView)view.findViewById(R.id.map_solution_steps);
 
-                if (cursor.getInt(MapsDB.SOUTION_STEPS_COLUMN) == 0) {
-                    map_solved_tickbox.setImageResource(R.drawable.abc_btn_check_to_on_mtrl_000);
+                if (cursor.getInt(MapsDB.SOLUTION_STEPS_COLUMN) == 0) {
                     map_solution_steps.setText("");
+                    if (cursor.getInt(MapsDB.ID_COLUMN) <  _DB.get_first_unsolved() + NUM_OF_OPENED_NEXT_LEVELS ) {
+                        map_solved_tickbox.setImageResource(R.drawable.ic_unlock);
+                    } else {
+                        map_solved_tickbox.setImageResource(R.drawable.ic_lock);
+                    }
                 }
                 else {
-                    map_solved_tickbox.setImageResource(R.drawable.abc_btn_check_to_on_mtrl_015);
+                    map_solved_tickbox.setImageResource(R.drawable.ic_unlock);
                     map_solution_steps.setText(
                             "Пройдено за "
-                                    + cursor.getString(MapsDB.SOUTION_STEPS_COLUMN)
+                                    + cursor.getString(MapsDB.SOLUTION_STEPS_COLUMN)
                                     + " шагов");
                 }
 
@@ -71,10 +78,16 @@ public class SelectLevelActivity extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent start_from = new Intent(SelectLevelActivity.this, GameActivity.class);
-        start_from.putExtra("selected_index", (int)id);
-        startActivity(start_from);
-        finish();
+        if (_DB.get_first_unsolved() + NUM_OF_OPENED_NEXT_LEVELS > id) {
+            Intent start_from = new Intent(SelectLevelActivity.this, GameActivity.class);
+            start_from.putExtra("selected_index", (int)id);
+            startActivity(start_from);
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this, R.string.closed_level, Toast.LENGTH_SHORT).show();
+        }
 
     }
 

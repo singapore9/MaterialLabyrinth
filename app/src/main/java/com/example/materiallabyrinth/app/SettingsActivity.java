@@ -1,10 +1,10 @@
 package com.example.materiallabyrinth.app;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by andrew on 03.03.16.
@@ -30,9 +30,7 @@ public class SettingsActivity extends AppCompatActivity{
                 MapsDB mapsDB = new MapsDB(getApplicationContext()).open();
                 mapsDB.reset();
 
-                Snackbar.make(findViewById(R.id.reset_levels_btn), "уровни сброшены, мой капитан!",
-                        Snackbar.LENGTH_SHORT).show();
-
+                Toast.makeText(this, R.string.reset_levels_msg, Toast.LENGTH_SHORT).show();
             }break;
         }
     }

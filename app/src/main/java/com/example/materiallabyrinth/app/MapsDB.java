@@ -23,7 +23,7 @@ public class MapsDB {
     public static final int NAME_COLUMN = 1;
 
     public static final String KEY_SOLUTION_STEPS = "solution_steps";
-    public static final int SOUTION_STEPS_COLUMN = 2;
+    public static final int SOLUTION_STEPS_COLUMN = 2;
 
     public static final String[] COLUMNS = {
             KEY_ID,
