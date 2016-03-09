@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView android:id="@+id/map_solved_tick"
+               android:paddingTop="10dip"
+               android:paddingBottom="10dip"
+               android:paddingLeft="5dip"
+               android:paddingRight="5dip"
+               android:layout_width="50dip"
+               android:layout_height="50dip">
+    </ImageView>
+
+    <TextView android:id="@+id/map_name"
+              android:textSize="46px"
+              android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="6.0"
+              android:paddingTop="10dip"
+              android:paddingBottom="15dip"
+              android:paddingLeft="5dip"
+              android:paddingRight="5dip"
+              android:gravity="left"
+              android:textColor="@color/btn_label_color"
+    />
+
+    <TextView android:id="@+id/map_solution_steps"
+              android:textSize="46px"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="1.0"
+              android:paddingTop="10dip"
+              android:paddingBottom="15dip"
+              android:paddingLeft="10dip"
+              android:paddingRight="20dip"
+              android:gravity="right"
+              android:textColor="@color/btn_label_color"
+    />
+</LinearLayout>

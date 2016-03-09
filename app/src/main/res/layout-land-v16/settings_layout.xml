@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+            android:id="@+id/settings_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_levels_btn_label"
+            android:id="@+id/reset_levels_btn"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/settings_content_frame"
+            android:layout_marginBottom="36dp"
+            android:onClick="onClick" android:layout_marginRight="20dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="В разработке"
+            android:rotation="-45"
+            android:textAllCaps="true"
+            android:textColor="#700000ff"
+            android:textSize="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/textView2"
+            android:layout_marginTop="95dp"
+            android:layout_centerHorizontal="true"/>
+</RelativeLayout>
