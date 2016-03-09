@@ -10,4 +10,5 @@ public final class Messages {
     public static final int MSG_RESTART = 4;
     public static final int MSG_MAP_PREVIOUS = 5;
     public static final int MSG_MAP_NEXT = 6;
+    public static final int MSG_FIRST_UNSOLVED = 7;
 }

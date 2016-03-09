@@ -136,14 +136,15 @@ public class GameEngine {
                                         "Слабо побить свои же рекорды?\nДерзай! :)"
                                 );
                                 _all_maps_solved_dialog.show();
+                                sendEmptyMessage(Messages.MSG_MAP_NEXT);
                             } else {
                                 _map_solved_dialog.setMessage(
                                         "Ты прошел лабиринт '" + _map.get_name() +
                                                 "' за " + _step_count + " шагов."
                                 );
                                 _map_solved_dialog.show();
+                                sendEmptyMessage(Messages.MSG_FIRST_UNSOLVED);
                             }
-                            sendEmptyMessage(Messages.MSG_MAP_NEXT);
 
                         }
                         return;
@@ -156,23 +157,25 @@ public class GameEngine {
                         return;
 
                     case Messages.MSG_MAP_PREVIOUS:
+                    case Messages.MSG_FIRST_UNSOLVED:
                     case Messages.MSG_MAP_NEXT:
                         switch (msg.what) {
-                        case (Messages.MSG_MAP_PREVIOUS):
-                            if (_current_map == 0) {
-                                _map_to_load = MapDesigns.designs.size() - 1;
-
-                            } else {
-                                _map_to_load = (_current_map - 1) % MapDesigns.designs.size();
-                            }
-                            break;
-                        case (Messages.MSG_MAP_NEXT):
-                            _map_to_load = (_current_map + 1) % MapDesigns.designs.size();
-                            break;
+                            case (Messages.MSG_MAP_PREVIOUS):
+                                if (_current_map == 0) {
+                                    _map_to_load = MapDesigns.designs.size() - 1;
+                                } else {
+                                    _map_to_load = (_current_map - 1) % MapDesigns.designs.size();
+                                }
+                                break;
+                            case (Messages.MSG_MAP_NEXT):
+                                _map_to_load = (_current_map + 1) % MapDesigns.designs.size();
+                                break;
+                            case (Messages.MSG_FIRST_UNSOLVED):
+                                _map_to_load = _DB.get_first_unsolved();
                         }
-
                         load_map(_map_to_load);
                             return;
+
                 }
                 super.handleMessage(msg);
             }
