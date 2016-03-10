@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory>
-        <SwitchPreference
+        <CheckBoxPreference
                 android:title="@string/sounds_switch"
                 android:defaultValue="false"
                 android:key="sounds_switch"/>
 
-        <SwitchPreference
+        <CheckBoxPreference
                 android:title="@string/animation_switch"
                 android:defaultValue="false"
                 android:key="animation_switch"/>
 
 
-        <SwitchPreference
+        <CheckBoxPreference
                 android:title="@string/accelerometr_switch"
                 android:defaultValue="false"
                 android:key="accelerometr_switch" />

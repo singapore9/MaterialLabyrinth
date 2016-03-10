@@ -4,15 +4,14 @@ package com.example.materiallabyrinth.app;
  * Created by andrew on 03.03.16.
  */
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +26,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView _steps_label;
 
     private FloatingActionButton _reset_fab;
+    private Button _reset_btn;
 
     private Animation rotate_fab;
 
@@ -46,13 +46,15 @@ public class GameActivity extends AppCompatActivity {
             int index = getIntent().getExtras().getInt("selected_index");
             _game_engine.set_current_map(index);
             _game_engine.send_empty_message(Messages.MSG_RESTART);
-        } catch (Exception e) {}
+        } catch (Exception e) {        }
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            _reset_fab = (FloatingActionButton) findViewById(R.id.reset_fab);
 
-        _reset_fab = (FloatingActionButton) findViewById(R.id.reset_fab);
-
-        rotate_fab = AnimationUtils.loadAnimation(this, R.anim.rotate_center);
-
+            rotate_fab = AnimationUtils.loadAnimation(this, R.anim.rotate_center);
+        } else {
+            _reset_btn = (Button) findViewById(R.id.reset_fab);
+        }
         _map_view = (MapView) findViewById(R.id.maze_view);
         _game_engine.set_maps_view(_map_view);
         _map_view.set_game_engine(_game_engine);
@@ -162,7 +164,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void Restart(View v) {
-        v.startAnimation(rotate_fab);
+        if (Build.VERSION.SDK_INT >= 21) {
+            v.startAnimation(rotate_fab);
+        }
         Toast.makeText(this, R.string.level_restart_toast, Toast.LENGTH_SHORT).show();
         _game_engine.send_empty_message(Messages.MSG_RESTART);
     }

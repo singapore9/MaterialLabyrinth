@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Шарик в клетке</string>
+    <string name="app_name">Лабиринт</string>
     <string name="settings_activity_name">Настройки</string>
     <string name="select_level_activity_name">Уровни</string>
     <string name="start_btn_label">Старт</string>
@@ -19,5 +19,15 @@
     <string name="level_solved_btn">К следующему!</string>
     <string name="all_levels_solved_tytle">Супер!</string>
     <string name="ok_btn">Ок!</string>
+    <string name="about_btn_label">Об игре</string>
+    <string name="about_text"><b>Игра логическая. Лабиринт.</b>\n
+        <i>Copyright © 2016, Андрей</i>\n
+        \n
+        Цель игры: научить ребёнка двигать пальцами, ну или смартфоном.
+        Ну или тебя, если нету ребёнка.\n
+        Простая и увлекательная игра.\n
+        \n
+        Подписывайтесь на канал, ставьте лайки.\n
+    </string>
     <string name="reset_levels_msg">Результаты сброшены</string>
 </resources>
