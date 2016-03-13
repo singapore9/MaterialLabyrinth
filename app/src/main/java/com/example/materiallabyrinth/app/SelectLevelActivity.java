@@ -62,9 +62,7 @@ public class SelectLevelActivity extends AppCompatActivity {
                 else {
                     map_solved_tickbox.setImageResource(R.drawable.ic_unlock);
                     map_solution_steps.setText(
-                            "Пройдено за "
-                                    + cursor.getString(MapsDB.SOLUTION_STEPS_COLUMN)
-                                    + " шагов");
+                            "Шаги: " + cursor.getString(MapsDB.SOLUTION_STEPS_COLUMN));
                 }
 
                 map_name.setText(

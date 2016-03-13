@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bottom_line_game"
                     android:textAllCaps="true"
-                    android:textSize="40dp"
+                    android:textSize="40sp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="№ ?"/>

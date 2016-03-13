@@ -44,11 +44,14 @@ public class MenuActivity extends AppCompatActivity {
                         "Подписывайтесь на канал, ставьте лайки."
                         );
 
-                dialog.show();  //<-- See This!
+                dialog.show();
             }
 
         });
         Button exit_btn = (Button) findViewById(R.id.exit_btn);
+
+
+
     }
 
     public void OnClick(View v) {
