@@ -5,15 +5,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
  * Created by andrew on 28.02.16.
  */
-public class GameEngine {
+public class GameEngine implements SoundPool.OnLoadCompleteListener {
+    final int MAX_SOUND_STREAMS = 1;
     private SensorManager _sensor_manager;
 
     private static float ACCEL_THRESHOLD = 2;
@@ -47,8 +51,12 @@ public class GameEngine {
     private final AlertDialog _map_solved_dialog;
     private final AlertDialog _all_maps_solved_dialog;
 
-
     private boolean _sensor_enabled = false;//true;
+
+    private SoundPool _sp;
+    private int _wall_reached_sound_id;
+    private int _goal_reached_sound_id;
+    private boolean _sound_enabled = false;
 
     private MapsDB _DB;
 
@@ -86,6 +94,12 @@ public class GameEngine {
         _sensor_manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         _sensor_manager.registerListener(_sensor_accelerometer, SensorManager.SENSOR_ACCELEROMETER,
                 SensorManager.SENSOR_DELAY_GAME);
+
+        _sp = new SoundPool(MAX_SOUND_STREAMS, AudioManager.STREAM_MUSIC, 0);
+        _sp.setOnLoadCompleteListener(this);
+
+        _wall_reached_sound_id = _sp.load(context, R.raw.wall, 1);
+        _goal_reached_sound_id = _sp.load(context, R.raw.goal, 2);
 
         _map = new Map(MapDesigns.designs.get(_current_map));
 
@@ -125,6 +139,10 @@ public class GameEngine {
                         _map_view.invalidate();
                         return;
                     case Messages.MSG_REACHED_GOAL:
+                        if (_sound_enabled) {
+                            _sp.play(_goal_reached_sound_id, 1, 1, 0, 0, 1);
+
+                        }
                         _remaining_goals_label.setText("" + _map.get_goal_count());
                         _remaining_goals_label.invalidate();
                         if (_map.get_goal_count() == 0) {
@@ -150,6 +168,10 @@ public class GameEngine {
                         return;
 
                     case Messages.MSG_REACHED_WALL:
+                        if (_sound_enabled) {
+                            _sp.play(_wall_reached_sound_id, 1, 1, 0, 0, 1);
+
+                        }
                         return;
 
                     case Messages.MSG_RESTART:
@@ -262,6 +284,10 @@ public class GameEngine {
         _sensor_enabled = false;//!_sensor_enabled;
     }
 
+    public void set_sound_enabled(boolean value) {
+        _sound_enabled = value;
+    }
+
     public void save_state(Bundle icicle) {
         _ball.stop();
 
@@ -314,5 +340,10 @@ public class GameEngine {
 
     public void reset_all() {
         _DB.reset();
+    }
+
+    @Override
+    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+        Log.d("myLogs", "onLoadComplete, sampleId = " + sampleId + ", status = " + status);
     }
 }

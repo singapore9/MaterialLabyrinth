@@ -4,8 +4,10 @@ package com.example.materiallabyrinth.app;
  * Created by andrew on 03.03.16.
  */
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
@@ -32,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
 
     private GestureDetector _gesture_destructor;
     private GameEngine _game_engine;
+    private SharedPreferences _settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class GameActivity extends AppCompatActivity {
 
         _game_engine = new GameEngine(GameActivity.this);
 
+        _settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        _game_engine.set_sound_enabled(_settings.getBoolean("sounds_switch", false));
         try {
             int index = getIntent().getExtras().getInt("selected_index");
             _game_engine.set_current_map(index);
