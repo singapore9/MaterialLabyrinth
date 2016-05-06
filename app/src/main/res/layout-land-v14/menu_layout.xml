@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="20dp"
         android:fitsSystemWindows="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingRight="20dp">
+        android:id="@+id/scrollView">
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
     <Button
             android:id="@+id/start_btn"
             android:layout_width="wrap_content"
@@ -17,7 +21,7 @@
             android:textColor="@color/btn_label_color"
             android:layout_centerHorizontal="true"
             android:onClick="OnClick"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:layout_gravity="center_horizontal"/>
 
     <Button
             android:id="@+id/select_lvl_btn"
@@ -28,8 +32,7 @@
             android:textSize="30sp"
             android:textColor="@color/btn_label_color"
             android:layout_centerHorizontal="true"
-            android:onClick="OnClick"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:onClick="OnClick" android:layout_gravity="center_horizontal"/>
 
     <Button
             android:id="@+id/settings_btn"
@@ -40,9 +43,7 @@
             android:textSize="30sp"
             android:textColor="@color/btn_label_color"
             android:layout_centerHorizontal="true"
-            android:onClick="OnClick"
-            style="?android:attr/borderlessButtonStyle"/>
-
+            android:onClick="OnClick" android:layout_gravity="center_horizontal"/>
     <Button
             android:id="@+id/about_btn"
             android:layout_width="wrap_content"
@@ -52,8 +53,7 @@
             android:textSize="30sp"
             android:textColor="@color/btn_label_color"
             android:layout_centerHorizontal="true"
-            android:onClick="OnClick"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:onClick="OnClick" android:layout_gravity="center_horizontal"/>
     <Button
             android:id="@+id/exit_btn"
             android:layout_width="wrap_content"
@@ -63,9 +63,8 @@
             android:textSize="30sp"
             android:textColor="@color/btn_label_color"
             android:layout_centerHorizontal="true"
-            android:onClick="OnClick"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:onClick="OnClick" android:layout_gravity="center_horizontal"/>
 
-</RelativeLayout>
+</LinearLayout>
 
-
+</ScrollView>

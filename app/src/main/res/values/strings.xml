@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Шарик в клетке</string>
+    <string name="app_name">Лабиринт</string>
     <string name="settings_activity_name">Настройки</string>
     <string name="select_level_activity_name">Уровни</string>
     <string name="start_btn_label">Старт</string>
@@ -8,7 +8,6 @@
     <string name="exit_btn_label">Выход</string>
     <string name="sounds_switch">Звуки</string>
     <string name="animation_switch">Анимация фона</string>
-    <string name="accelerometr_switch">Акселерометр</string>
     <string name="reset_levels_btn_label">Сброс результатов</string>
     <string name="level_restart_toast">Новая попытка</string>
     <string name="level_restart_btn_label">Заново</string>
@@ -19,5 +18,14 @@
     <string name="level_solved_btn">К следующему!</string>
     <string name="all_levels_solved_tytle">Супер!</string>
     <string name="ok_btn">Ок!</string>
+    <string name="about_btn_label">Об игре</string>
+    <string name="about_text"><b>Игра логическая. Лабиринт.</b>\n
+        <i>Copyright © 2016, Андрей</i>\n
+        \n
+        Цель игры: Собрать все ящики на уровне. Ну и все уровни пройти.\n
+        Правила игры: Шарик двигается до первой встречаемой стенки в направлении swipe'а.\n
+        \n
+        <b>Удачи!</b>\n
+    </string>
     <string name="reset_levels_msg">Результаты сброшены</string>
 </resources>

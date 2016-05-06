@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
+        android:orientation="horizontal"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/game_coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:layout_below="@+id/maze_view"
-            android:layout_alignParentStart="true">
-        <com.example.materiallabyrinth.app.MapView
+    <com.example.materiallabyrinth.app.MapView
             android:id="@+id/maze_view"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/view" android:focusable="false"
             android:focusableInTouchMode="false" android:clickable="false"/>
-
+    <GridLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_gravity="right">
         <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_gravity="right">
-            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
@@ -98,26 +91,27 @@
                       android:ems="2"
             />
         </LinearLayout>
-            <TextView
-                    android:id="@+id/maze_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/bottom_line_game"
-                    android:textAllCaps="true"
-                    android:textSize="40sp"
-                    android:layout_centerHorizontal="true" android:layout_centerVertical="true" android:text="№ ?"/>
-        </LinearLayout>
+        <TextView
+                android:id="@+id/maze_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bottom_line_game"
+                android:textAllCaps="true"
+                android:textSize="40sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="№ ?"/>
+        <Button
+                android:id="@+id/reset_fab"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:onClick="Restart"
+                android:text="@string/level_restart_btn_label"
+                android:layout_alignBottom="@+id/linearLayout"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"/>
 
-    </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/reset_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="15dp"
-            android:elevation="8dp"
-            android:src="@drawable/reset"
-            android:onClick="Restart"
-            android:layout_alignBottom="@+id/linearLayout" android:layout_alignParentEnd="true"/>
-</android.support.design.widget.CoordinatorLayout>
+    </GridLayout>
+</LinearLayout>

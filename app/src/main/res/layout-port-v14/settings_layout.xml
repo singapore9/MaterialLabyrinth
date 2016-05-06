@@ -16,9 +16,9 @@
             android:id="@+id/reset_levels_btn"
             android:layout_alignParentBottom="true"
             android:layout_alignEnd="@+id/settings_content_frame"
+            android:layout_alignRight="@+id/settings_content_frame"
             android:layout_marginBottom="36dp"
-            android:onClick="onClick"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:onClick="onClick"/>
     <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
@@ -32,6 +32,4 @@
             <!--android:id="@+id/textView2"-->
             <!--android:layout_marginTop="95dp"-->
             <!--android:layout_centerHorizontal="true"/>-->
-
-
 </RelativeLayout>

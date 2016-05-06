@@ -26,8 +26,8 @@ public class MapDesign {
         _goals = goals;
         _initial_positionX = initial_positionX;
         _initial_positionY = initial_positionY;
-        for (int y = 0; y < _sizeY; ++y) {
-            for (int x = 0; x < sizeX; ++x) {
+        for (int y = 0; y <= _sizeY; ++y) {
+            for (int x = 0; x <= _sizeX; ++x) {
                 _goal_count += _goals[y][x];
             }
         }

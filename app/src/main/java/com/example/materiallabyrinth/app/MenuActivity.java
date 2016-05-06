@@ -1,18 +1,16 @@
 package com.example.materiallabyrinth.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-public class MenuActivity extends AppCompatActivity{
-
-    private DrawerLayout mDrawerLayout;
-
+public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,22 +19,27 @@ public class MenuActivity extends AppCompatActivity{
         Button start_btn = (Button) findViewById(R.id.start_btn);
         Button select_lvl_brn = (Button) findViewById(R.id.select_lvl_btn);
         Button settings_btn = (Button) findViewById(R.id.settings_btn);
+        Button about_btn = (Button) findViewById(R.id.about_btn);
+        about_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog dialog = new AlertDialog.Builder(MenuActivity.this)
+                        .setCancelable(true)
+                        .setTitle(R.string.about_btn_label)
+                        .setPositiveButton("Ой всё", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which_button) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create();
+                dialog.setMessage(MenuActivity.this.getString(R.string.about_text));
+                dialog.show();
+            }
+
+        });
         Button exit_btn = (Button) findViewById(R.id.exit_btn);
 
-        //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-//        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Snackbar.make(findViewById(R.id.coordinator), "I'm a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(MenuActivity.this, "Snackbar Action", Toast.LENGTH_LONG).show();
-//                    }
-//                }).show();
-//            }
-//        });
+
     }
 
     public void OnClick(View v) {
@@ -61,7 +64,7 @@ public class MenuActivity extends AppCompatActivity{
             } break;
 
             default: {
-                Snackbar.make(findViewById(R.id.coordinator), "click-click", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(this, "click-click", Toast.LENGTH_LONG).show();
             } break;
         }
     }

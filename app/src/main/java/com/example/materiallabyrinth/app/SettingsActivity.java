@@ -9,7 +9,7 @@ import android.widget.Toast;
 /**
  * Created by andrew on 03.03.16.
  */
-public class SettingsActivity extends AppCompatActivity{
+public class SettingsActivity extends AppCompatActivity {
 
     private Button _reset_levels_btn;
 

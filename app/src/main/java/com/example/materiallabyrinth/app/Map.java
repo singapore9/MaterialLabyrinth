@@ -16,12 +16,12 @@ public class Map {
 
     public void init() {
         if (_goals == null) {
-            _goals = new int[_design.get_sizeY()][_design.get_sizeX()];
+            _goals = new int[_design.get_sizeY() + 1][_design.get_sizeX() + 1];
         }
 
         int [][] goals = _design.get_goals();
-        for (int y = 0; y < _design.get_sizeY(); ++y) {
-            for (int x = 0; x < _design.get_sizeX(); ++x) {
+        for (int y = 0; y <= _design.get_sizeY(); ++y) {
+            for (int x = 0; x <= _design.get_sizeX(); ++x) {
                 _goals[y][x] = goals[y][x];
             }
         }

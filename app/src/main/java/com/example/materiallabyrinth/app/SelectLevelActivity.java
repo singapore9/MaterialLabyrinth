@@ -4,26 +4,30 @@ package com.example.materiallabyrinth.app;
  * Created by andrew on 03.03.16.
  */
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.*;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 
-public class SelectLevelActivity extends ListActivity {
+public class SelectLevelActivity extends AppCompatActivity {
     private MapsDB _DB;
     private static final int NUM_OF_OPENED_NEXT_LEVELS = 2;
-    
+    private ListView listView;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         _DB = new MapsDB(getApplicationContext()).open();
 
+        setContentView(R.layout.select_lvl_layout);
+        listView = (ListView) findViewById(R.id.list);
 
-
-        setListAdapter(new CursorAdapter(getApplicationContext(), _DB.allMaps(), true) {
+        listView.setAdapter(new CursorAdapter(getBaseContext(), _DB.allMaps(), true) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                 final LayoutInflater inflater = LayoutInflater.from(context);
@@ -58,9 +62,7 @@ public class SelectLevelActivity extends ListActivity {
                 else {
                     map_solved_tickbox.setImageResource(R.drawable.ic_unlock);
                     map_solution_steps.setText(
-                            "Пройдено за "
-                                    + cursor.getString(MapsDB.SOLUTION_STEPS_COLUMN)
-                                    + " шагов");
+                            "Шаги: " + cursor.getString(MapsDB.SOLUTION_STEPS_COLUMN));
                 }
 
                 map_name.setText(
@@ -71,25 +73,26 @@ public class SelectLevelActivity extends ListActivity {
             }
         });
 
-        setContentView(R.layout.select_lvl_layout);
-        //setContentView(new GameView(this,null));
+        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View v, int position, long id) {
+                if (_DB.get_first_unsolved() + NUM_OF_OPENED_NEXT_LEVELS > id) {
+                    Intent start_from = new Intent(SelectLevelActivity.this, GameActivity.class);
+                    start_from.putExtra("selected_index", (int)id);
+                    startActivity(start_from);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), R.string.closed_level, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        if (_DB.get_first_unsolved() + NUM_OF_OPENED_NEXT_LEVELS > id) {
-            Intent start_from = new Intent(SelectLevelActivity.this, GameActivity.class);
-            start_from.putExtra("selected_index", (int)id);
-            startActivity(start_from);
-            finish();
-        }
-        else
-        {
-            Toast.makeText(this, R.string.closed_level, Toast.LENGTH_SHORT).show();
-        }
 
-    }
 
 
 }
