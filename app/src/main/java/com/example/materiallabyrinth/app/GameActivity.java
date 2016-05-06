@@ -77,11 +77,6 @@ public class GameActivity extends AppCompatActivity {
         _steps_label = (TextView) findViewById(R.id.steps);
         _game_engine.set_steps_label(_steps_label);
 
-        _game_engine.restore_state(
-                savedInstanceState,
-                getPreferences(MODE_PRIVATE).getBoolean("sensorenabled", false)
-        );
-
         _gesture_destructor = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
@@ -151,16 +146,12 @@ public class GameActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle icicle) {
         super.onSaveInstanceState(icicle);
         _game_engine.save_state(icicle);
-        _game_engine.unregister_listener();
+//        _game_engine.unregister_listener();
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        _game_engine.restore_state(
-                savedInstanceState,
-                getPreferences(MODE_PRIVATE).getBoolean("sensorenabled", true)
-        );
     }
 
     @Override

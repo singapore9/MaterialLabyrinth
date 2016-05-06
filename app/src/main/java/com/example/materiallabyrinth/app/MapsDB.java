@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MapsDB {
     private static final String DATABASE_NAME = "maps.db";
     private static final String DATABASE_TABLE = "maps";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 666;
 
     public static final String KEY_ID = "_id";
     public static final int ID_COLUMN = 0;

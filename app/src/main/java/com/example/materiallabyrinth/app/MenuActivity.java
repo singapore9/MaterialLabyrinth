@@ -28,7 +28,6 @@ public class MenuActivity extends AppCompatActivity {
                         .setPositiveButton("Ой всё.", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which_button) {
                                 dialog.cancel();
-                        /*send_empty_message(Messages.MSG_MAP_NEXT);*/
                             }
                         })
                         .create();

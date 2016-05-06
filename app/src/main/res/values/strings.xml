@@ -8,7 +8,6 @@
     <string name="exit_btn_label">Выход</string>
     <string name="sounds_switch">Звуки</string>
     <string name="animation_switch">Анимация фона</string>
-    <string name="accelerometr_switch">Акселерометр</string>
     <string name="reset_levels_btn_label">Сброс результатов</string>
     <string name="level_restart_toast">Новая попытка</string>
     <string name="level_restart_btn_label">Заново</string>

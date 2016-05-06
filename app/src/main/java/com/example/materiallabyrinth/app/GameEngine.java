@@ -3,8 +3,6 @@ package com.example.materiallabyrinth.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.hardware.SensorListener;
-import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -18,11 +16,6 @@ import android.widget.TextView;
  */
 public class GameEngine implements SoundPool.OnLoadCompleteListener {
     final int MAX_SOUND_STREAMS = 1;
-    private SensorManager _sensor_manager;
-
-    private static float ACCEL_THRESHOLD = 2;
-    private float _accelX = 0;
-    private float _accelY = 0;
 
     private Handler _handler;
 
@@ -51,8 +44,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
     private final AlertDialog _map_solved_dialog;
     private final AlertDialog _all_maps_solved_dialog;
 
-    private boolean _sensor_enabled = false;//true;
-
     private SoundPool _sp;
     private int _wall_reached_sound_id;
     private int _goal_reached_sound_id;
@@ -60,40 +51,9 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
 
     private MapsDB _DB;
 
-    private final SensorListener _sensor_accelerometer = new SensorListener() {
-        @Override
-        public void onSensorChanged(int sensor, float[] values) {
-            if (!_sensor_enabled) return;
-
-            _accelX = values[0];
-            _accelY = values[1];
-
-            _commanded_roll_direction = Direction.NONE;
-            /*if (Math.abs(_accelX) > Math.abs(_accelY)) {
-                if (_accelX < -ACCEL_THRESHOLD) _commanded_roll_direction = Direction.LEFT;
-                if (_accelX > ACCEL_THRESHOLD) _commanded_roll_direction = Direction.RIGHT;
-            } else {
-                if (_accelY < -ACCEL_THRESHOLD) _commanded_roll_direction = Direction.DOWN;
-                if (_accelY > ACCEL_THRESHOLD) _commanded_roll_direction = Direction.UP;
-            }*/
-            if (_commanded_roll_direction != Direction.NONE && ! _ball.is_rolling()) {
-                roll_ball(_commanded_roll_direction);
-            }
-        }
-
-        @Override
-        public void onAccuracyChanged(int sensor, int accuracy) {
-
-        }
-    };
-
     public GameEngine (Context context) {
         _DB = new MapsDB(context).open();
         _current_map = _DB.get_first_unsolved();
-
-        _sensor_manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        _sensor_manager.registerListener(_sensor_accelerometer, SensorManager.SENSOR_ACCELEROMETER,
-                SensorManager.SENSOR_DELAY_GAME);
 
         _sp = new SoundPool(MAX_SOUND_STREAMS, AudioManager.STREAM_MUSIC, 0);
         _sp.setOnLoadCompleteListener(this);
@@ -114,7 +74,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
                 .setPositiveButton(R.string.level_solved_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which_button) {
                         dialog.cancel();
-                       /* send_empty_message(Messages.MSG_MAP_NEXT);*/
                     }
                 })
                 .create();
@@ -126,7 +85,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
                 .setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which_button) {
                         dialog.cancel();
-                        /*send_empty_message(Messages.MSG_MAP_NEXT);*/
                     }
                 })
                 .create();
@@ -253,15 +211,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
         _handler.sendMessage(msg);
     }
 
-    public void register_listener() {
-        _sensor_manager.registerListener(_sensor_accelerometer, SensorManager.SENSOR_ACCELEROMETER,
-                SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    public void unregister_listener() {
-        _sensor_manager.unregisterListener(_sensor_accelerometer);
-    }
-
     public void roll_ball(Direction dir) {
         if (_ball.roll(dir)) ++_step_count;
         _steps_view.setText("" + _step_count);
@@ -276,14 +225,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
         return _map;
     }
 
-    public boolean is_sensor_enabled() {
-        return _sensor_enabled;
-    }
-
-    public void toggle_sensor_enabled() {
-        _sensor_enabled = false;//!_sensor_enabled;
-    }
-
     public void set_sound_enabled(boolean value) {
         _sound_enabled = value;
     }
@@ -296,9 +237,9 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
         int[][] goals = _map.get_goals();
         int sizeX = _map.get_sizeX();
         int sizeY = _map.get_sizeY();
-        int[] goals_to_save = new int[sizeX * sizeY];
-        for (int y = 0; y < sizeY; ++y)
-            for (int x = 0; x < sizeX; ++x)
+        int[] goals_to_save = new int[(1 + sizeX) * (1 + sizeY)];
+        for (int y = 0; y <= sizeY; ++y)
+            for (int x = 0; x <= sizeX; ++x)
                 goals_to_save[y + x*sizeX] = goals[y][x];
         icicle.putIntArray("map.goals", goals_to_save);
         icicle.putInt("stepcount", _step_count);
@@ -306,7 +247,7 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
         icicle.putInt("ball.y", Math.round(_ball.get_y()));
     }
 
-    public void restore_state(Bundle icicle, boolean sensor_enabled) {
+    public void restore_state(Bundle icicle) {
         if (icicle != null) {
             int mapID = icicle.getInt("map.id", -1);
             if (mapID == -1) return;;
@@ -317,9 +258,9 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
 
             int sizeX = _map.get_sizeX();
             int sizeY = _map.get_sizeY();
-            for (int y = 0; y < sizeY;++y)
-                for (int x = 0; x < sizeX; ++x)
-                    _map.set_goal(x, y, goals[y + x*sizeX]);
+            for (int y = 0; y <= sizeY;++y)
+                for (int x = 0; x <= sizeX; ++x)
+                    _map.set_goal(x, y, goals[y + x*(sizeX + 1)]);
 
             _ball.set_x(icicle.getInt("ball.x"));
             _ball.set_y(icicle.getInt("ball.y"));
@@ -334,8 +275,6 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
 
         _steps_view.setText("" + _step_count);
         _steps_view.invalidate();
-
-        _sensor_enabled = false;//sensor_enabled;
     }
 
     public void reset_all() {

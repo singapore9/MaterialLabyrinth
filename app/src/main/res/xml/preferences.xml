@@ -11,11 +11,5 @@
                 android:defaultValue="false"
                 android:key="animation_switch"/>
 
-
-        <SwitchPreference
-                android:title="@string/accelerometr_switch"
-                android:defaultValue="false"
-                android:key="accelerometr_switch" />
-
     </PreferenceCategory>
 </PreferenceScreen>

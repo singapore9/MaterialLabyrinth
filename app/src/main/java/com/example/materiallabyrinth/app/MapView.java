@@ -159,46 +159,14 @@ public class MapView extends View {
         _walls = _game_engine.get_map().get_walls();
 
        for (int i = 1; i >= 0; --i) {
-           for (int y = 0; y < _map_height; ++y) {
-               for (int x = 0; x < _map_width; ++x) {
-                   if ((_walls[y][x] & Wall.TOP) > 0) {
-                       canvas.drawLine(
-                               _minX + x * _unit + i*_val,
-                               _minY + y * _unit + i*_val,
-                               _minX + (x + 1) * _unit + i*_val,
-                               _minY + y * _unit + i*_val,
-                               _paints[i]
-                       );
+           for (int y = 0; y <= _map_height; ++y) {
+               for (int x = 0; x <= _map_width; ++x) {
+                   if ((_walls[y][x] & Wall.BOTTOM) > 0) {
+                       drawWall(canvas, x-1, y, x, y, _paints[i], i);
                    }
 
                    if ((_walls[y][x] & Wall.RIGHT) > 0) {
-                       canvas.drawLine(
-                               _minX + (x + 1) * _unit + i*_val,
-                               _minY + y * _unit + i*_val,
-                               _minX + (x + 1) * _unit + i*_val,
-                               _minY + (y + 1) * _unit + i*_val,
-                               _paints[i]
-                       );
-                   }
-
-                   if ((_walls[y][x] & Wall.BOTTOM) > 0) {
-                       canvas.drawLine(
-                               _minX + x * _unit + i*_val,
-                               _minY + (y + 1) * _unit + i*_val,
-                               _minX + (x + 1) * _unit + i*_val,
-                               _minY + (y + 1) * _unit + i*_val,
-                               _paints[i]
-                       );
-                   }
-
-                   if ((_walls[y][x] & Wall.LEFT) > 0) {
-                       canvas.drawLine(
-                               _minX + x * _unit + i*_val,
-                               _minY + y * _unit + i*_val,
-                               _minX + x * _unit + i*_val,
-                               _minY + (y + 1) * _unit + i*_val,
-                               _paints[i]
-                       );
+                       drawWall(canvas, x, y-1,x, y, _paints[i], i);
                    }
                }
            }
@@ -207,6 +175,15 @@ public class MapView extends View {
         for (int i = 1; i >= 0; --i) {
             _paints[i].setShader(null);
         }
+    }
+
+    private void drawWall(Canvas canvas, float x0, float y0, float x1, float y1,
+                        Paint paint, int dz) {
+        canvas.drawLine(_minX + (x0) * _unit + dz*_val,
+                _minY + (y0) * _unit + dz*_val,
+                _minX + (x1) * _unit + dz*_val,
+                _minY + (y1) * _unit + dz*_val,
+                paint);
     }
 
     private void drawGoals(Canvas canvas) {
@@ -220,21 +197,21 @@ public class MapView extends View {
 
         _goals = _game_engine.get_map().get_goals();
         for (int i = 1; i >= 0; --i) {
-            for (int y = 0; y < _map_height; ++y) {
-                for (int x = 0; x < _map_width; ++x) {
+            for (int y = 1; y <= _map_height; ++y) {
+                for (int x = 1; x <= _map_width; ++x) {
 
                         if (_goals[y][x] > 0) {
                             _matrix.setTranslate(
-                                    _minX + x * _unit,
-                                    _minY + y * _unit
+                                    _minX + (x-1) * _unit,
+                                    _minY + (y-1) * _unit
                             );
                             _matrix.setConcat(_matrix, _scale_matrix);
                             _goal_gradient.setLocalMatrix(_matrix);
                             canvas.drawRect(
-                                    _minX + x * _unit + _unit / 4 + i*_val,
-                                    _minY + y * _unit + _unit / 4 + i*_val,
-                                    _minX + (x + 1) * _unit - _unit / 4 + i*_val,
-                                    _minY + (y + 1) * _unit - _unit / 4 + i*_val,
+                                    _minX + (x-1) * _unit + _unit / 4 + i*_val,
+                                    _minY + (y-1) * _unit + _unit / 4 + i*_val,
+                                    _minX + (x) * _unit - _unit / 4 + i*_val,
+                                    _minY + (y) * _unit - _unit / 4 + i*_val,
                                     _paints[i]
                             );
                         }
@@ -248,8 +225,8 @@ public class MapView extends View {
     }
 
     private void drawBall(Canvas canvas) {
-        _ballX = _ball.get_x();
-        _ballY = _ball.get_y();
+        _ballX = _ball.get_x()-1;
+        _ballY = _ball.get_y()-1;
 
         _paints[0].setColor(getResources().getColor(R.color.ball));
         _paints[1].setColor(getResources().getColor(R.color.shadow));

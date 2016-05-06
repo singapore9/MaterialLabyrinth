@@ -1,7 +1,5 @@
 package com.example.materiallabyrinth.app;
 
-import android.graphics.Path;
-import android.os.Message;
 import android.os.SystemClock;
 
 import java.util.Timer;
@@ -57,30 +55,23 @@ public class Ball {
     }
 
     private boolean is_valid_move(int x, int y, Direction dir) {
+        System.out.println(x + " " + y);
         switch (dir) {
             case LEFT:
-                if (x <= 0) return false;
-                if ((_map.get_walls(x, y) & Wall.LEFT) > 0 ||
-                        (_map.get_walls(x - 1, y) & Wall.RIGHT) > 0
-                        ) return false;
+                if (x < 1) return false;
+                if ((_map.get_walls(x - 1, y) & Wall.RIGHT) > 0) return false;
                 break;
             case RIGHT:
-                if (x >= _map.get_sizeX() - 1) return false;
-                if ((_map.get_walls(x, y) & Wall.RIGHT) > 0 ||
-                        (_map.get_walls(x + 1, y) & Wall.LEFT) > 0
-                        ) return false;
+                if (x > _map.get_sizeX()) return false;
+                if ((_map.get_walls(x, y) & Wall.RIGHT) > 0) return false;
                 break;
             case UP:
-                if (y <= 0) return false;
-                if ((_map.get_walls(x, y) & Wall.TOP) > 0 ||
-                        (_map.get_walls(x, y - 1) & Wall.BOTTOM) > 0
-                        ) return false;
+                if (y < 1) return false;
+                if ((_map.get_walls(x, y - 1) & Wall.BOTTOM) > 0) return false;
                 break;
             case DOWN:
-                if (y >= _map.get_sizeY() - 1) return false;
-                if ((_map.get_walls(x, y) & Wall.BOTTOM) > 0 ||
-                        (_map.get_walls(x, y + 1) & Wall.TOP) > 0
-                        ) return false;
+                if (y > _map.get_sizeY()) return false;
+                if ((_map.get_walls(x, y) & Wall.BOTTOM) > 0) return false;
                 break;
         }
         return true;
