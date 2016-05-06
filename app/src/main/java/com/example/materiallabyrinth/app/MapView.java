@@ -16,6 +16,8 @@ import java.util.TimerTask;
  * Created by andrew on 28.02.16.
  */
 public class MapView extends View {
+    private static int FPS = 40;
+
     private boolean DEBUG = false;
 
     private static final float WALL_WIDTH = 10;
@@ -78,7 +80,7 @@ public class MapView extends View {
                 }
             };
             _timer = new Timer(true);
-            _timer.schedule(redrawTask, 0, 1000/25);
+            _timer.schedule(redrawTask, 0, 1000/FPS);
         }
     }
 

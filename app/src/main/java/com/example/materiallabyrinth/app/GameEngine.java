@@ -98,7 +98,7 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
                         return;
                     case Messages.MSG_REACHED_GOAL:
                         if (_sound_enabled) {
-                            _sp.play(_goal_reached_sound_id, 1, 1, 0, 0, 1);
+                            _sp.play(_goal_reached_sound_id, 1, 1, 1, 0, 1);
 
                         }
                         _remaining_goals_label.setText("" + _map.get_goal_count());
@@ -126,10 +126,10 @@ public class GameEngine implements SoundPool.OnLoadCompleteListener {
                         return;
 
                     case Messages.MSG_REACHED_WALL:
-                        if (_sound_enabled) {
-                            _sp.play(_wall_reached_sound_id, 1, 1, 0, 0, 1);
-
-                        }
+//                        if (_sound_enabled) {
+//                            _sp.play(_wall_reached_sound_id, 1, 1, 0, 0, 1);
+//
+//                        }
                         return;
 
                     case Messages.MSG_RESTART:

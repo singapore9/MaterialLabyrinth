@@ -25,24 +25,13 @@ public class MenuActivity extends AppCompatActivity {
                 AlertDialog dialog = new AlertDialog.Builder(MenuActivity.this)
                         .setCancelable(true)
                         .setTitle(R.string.about_btn_label)
-                        .setPositiveButton("Ой всё.", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Ой всё", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which_button) {
                                 dialog.cancel();
                             }
                         })
                         .create();
-
-                dialog.setMessage("Игра логическая. Лабиринт.\n" +
-                        "Copyright © 2016, Андрей\n\n"+
-                        "Цель игры: научить ребёнка двигать пальцами, ну или смартфоном.\n" +
-                        "Ну или тебя, если нету ребёнка.\n" +
-                        "Простая и увлекательная игра.\n\n" +
-                        "Пальцем проводишь в нужном направлении (горизонталь/вертикаль) и " +
-                        "мяч летит туда до первой стенки. Собираешь все ящики или находишь баг - " +
-                        "проходишь на следующий уровень.\n" +
-                        "Подписывайтесь на канал, ставьте лайки."
-                        );
-
+                dialog.setMessage(MenuActivity.this.getString(R.string.about_text));
                 dialog.show();
             }
 
